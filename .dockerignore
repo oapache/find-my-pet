@@ -1,0 +1,12 @@
+.next
+node_modules
+npm-debug.log*
+.env*
+!.env.example
+*.tsbuildinfo
+.git
+.github
+README.md
+docker-compose*.yml
+nginx
+certbot

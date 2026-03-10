@@ -1,0 +1,200 @@
+{
+  "Common": {
+    "appName": "Find My Pet",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "search": "Search",
+    "noResults": "No results found",
+    "error": "An error occurred",
+    "success": "Success!"
+  },
+  "Auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "email": "Email",
+    "password": "Password",
+    "name": "Full name",
+    "confirmPassword": "Confirm password",
+    "forgotPassword": "Forgot your password?",
+    "orContinueWith": "Or continue with",
+    "google": "Google",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "invalidCredentials": "Invalid email or password",
+    "emailInUse": "This email is already in use"
+  },
+  "Landing": {
+    "hero": {
+      "title": "Your pet always identified and protected",
+      "subtitle": "Custom QR Code, digital profile, and lost pet poster — all in one place.",
+      "cta": "Start for free",
+      "ctaSecondary": "View plans"
+    },
+    "features": {
+      "title": "Everything your pet needs",
+      "qrCode": {
+        "title": "Custom QR Code",
+        "description": "Create a unique QR Code with colors and styles that match your pet."
+      },
+      "profile": {
+        "title": "Digital Profile",
+        "description": "Complete page with photo, description, and contact info — accessible from any smartphone."
+      },
+      "poster": {
+        "title": "Lost Pet Poster",
+        "description": "Generate professional posters 100% free, ready to print or share."
+      },
+      "tags": {
+        "title": "Physical Tags",
+        "description": "QR and NFC tags for your pet's collar — durable and stylish."
+      }
+    }
+  },
+  "Dashboard": {
+    "title": "My Pets",
+    "addPet": "Add pet",
+    "noPets": "You haven't added any pets yet.",
+    "noPetsDescription": "Start by creating your first pet's profile!",
+    "editPet": "Edit pet",
+    "viewProfile": "View profile",
+    "generateQR": "Generate QR Code",
+    "generatePoster": "Generate poster",
+    "markAsLost": "Mark as lost",
+    "markAsFound": "Mark as found",
+    "plan": {
+      "title": "Your plan",
+      "free": "Free",
+      "premium": "Premium",
+      "pro": "Pro",
+      "upgrade": "Upgrade",
+      "petsUsed": "{count} of {max} pets"
+    }
+  },
+  "PetForm": {
+    "title": "Register Pet",
+    "editTitle": "Edit Pet",
+    "name": "Pet name",
+    "species": "Species",
+    "speciesOptions": {
+      "dog": "Dog",
+      "cat": "Cat",
+      "bird": "Bird",
+      "other": "Other"
+    },
+    "breed": "Breed",
+    "color": "Color",
+    "size": "Size",
+    "sizeOptions": {
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large"
+    },
+    "weight": "Weight (kg)",
+    "birthDate": "Date of birth",
+    "gender": "Gender",
+    "genderOptions": {
+      "male": "Male",
+      "female": "Female",
+      "unknown": "Not specified"
+    },
+    "microchipId": "Microchip ID",
+    "description": "Description",
+    "descriptionPlaceholder": "Tell us a bit about your pet...",
+    "photos": "Photos",
+    "photosHint": "Add up to {max} photos of your pet",
+    "uploadPhoto": "Upload photo",
+    "primaryPhoto": "Primary photo",
+    "submit": "Save pet",
+    "submitting": "Saving..."
+  },
+  "PetProfile": {
+    "title": "Pet Profile",
+    "lostBanner": "⚠️ {name} has been lost since {date}!",
+    "lastSeen": "Last seen at: {location}",
+    "contact": "Get in touch",
+    "contactPhone": "Call owner",
+    "species": "Species",
+    "breed": "Breed",
+    "color": "Color",
+    "size": "Size",
+    "weight": "Weight",
+    "age": "Age",
+    "gender": "Gender",
+    "microchip": "Microchip",
+    "description": "About {name}",
+    "scanQR": "Scan the QR Code to access this profile",
+    "reportSighting": "I saw this pet!",
+    "shareProfile": "Share profile"
+  },
+  "Poster": {
+    "title": "LOST PET",
+    "subtitle": "HELP US FIND",
+    "lastSeen": "Last seen at: {location}",
+    "contact": "Contact: {phone}",
+    "scanQR": "Scan for more information",
+    "reward": "REWARD",
+    "generate": "Generate poster",
+    "download": "Download poster",
+    "generating": "Generating poster..."
+  },
+  "Plans": {
+    "title": "Plans",
+    "subtitle": "Choose the best plan for you and your pet",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "free": {
+      "name": "Free",
+      "price": "$0",
+      "description": "Perfect to get started",
+      "features": [
+        "1 pet",
+        "3 photos per pet",
+        "Basic QR Code",
+        "1 poster template",
+        "Public profile"
+      ]
+    },
+    "premium": {
+      "name": "Premium",
+      "price": "$4.90",
+      "description": "For those who want more customization",
+      "features": [
+        "5 pets",
+        "10 photos per pet",
+        "Custom QR Code",
+        "5 poster templates",
+        "Customizable profile",
+        "Scan analytics"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "$9.90",
+      "description": "Maximum protection and style",
+      "features": [
+        "Unlimited pets",
+        "Unlimited photos",
+        "Fully custom QR Code",
+        "Unlimited poster templates",
+        "Fully custom profile",
+        "Advanced analytics",
+        "Priority support"
+      ]
+    },
+    "currentPlan": "Current plan",
+    "choosePlan": "Choose plan",
+    "popular": "Most popular"
+  },
+  "Footer": {
+    "rights": "© {year} Find My Pet. All rights reserved.",
+    "privacy": "Privacy",
+    "terms": "Terms of service",
+    "contact": "Contact"
+  }
+}

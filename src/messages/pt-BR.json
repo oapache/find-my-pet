@@ -1,0 +1,200 @@
+{
+  "Common": {
+    "appName": "Find My Pet",
+    "loading": "Carregando...",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "search": "Buscar",
+    "noResults": "Nenhum resultado encontrado",
+    "error": "Ocorreu um erro",
+    "success": "Sucesso!"
+  },
+  "Auth": {
+    "signIn": "Entrar",
+    "signUp": "Criar conta",
+    "signOut": "Sair",
+    "email": "E-mail",
+    "password": "Senha",
+    "name": "Nome completo",
+    "confirmPassword": "Confirmar senha",
+    "forgotPassword": "Esqueceu a senha?",
+    "orContinueWith": "Ou continue com",
+    "google": "Google",
+    "alreadyHaveAccount": "Já tem uma conta?",
+    "dontHaveAccount": "Não tem uma conta?",
+    "invalidCredentials": "E-mail ou senha inválidos",
+    "emailInUse": "Este e-mail já está em uso"
+  },
+  "Landing": {
+    "hero": {
+      "title": "Seu pet sempre identificado e protegido",
+      "subtitle": "QR Code personalizado, perfil digital e cartaz de pet perdido — tudo em um só lugar.",
+      "cta": "Começar grátis",
+      "ctaSecondary": "Ver planos"
+    },
+    "features": {
+      "title": "Tudo que seu pet precisa",
+      "qrCode": {
+        "title": "QR Code Personalizado",
+        "description": "Crie um QR Code único com as cores e estilo que combinam com seu pet."
+      },
+      "profile": {
+        "title": "Perfil Digital",
+        "description": "Página completa com foto, descrição e dados de contato — acessível por qualquer smartphone."
+      },
+      "poster": {
+        "title": "Cartaz de Pet Perdido",
+        "description": "Gere cartazes profissionais 100% grátis, prontos para imprimir ou compartilhar."
+      },
+      "tags": {
+        "title": "Tags Físicas",
+        "description": "Plaquinhas QR e NFC para a coleira do seu pet — resistentes e estilosas."
+      }
+    }
+  },
+  "Dashboard": {
+    "title": "Meus Pets",
+    "addPet": "Adicionar pet",
+    "noPets": "Você ainda não adicionou nenhum pet.",
+    "noPetsDescription": "Comece criando o perfil do seu primeiro pet!",
+    "editPet": "Editar pet",
+    "viewProfile": "Ver perfil",
+    "generateQR": "Gerar QR Code",
+    "generatePoster": "Gerar cartaz",
+    "markAsLost": "Marcar como perdido",
+    "markAsFound": "Marcar como encontrado",
+    "plan": {
+      "title": "Seu plano",
+      "free": "Gratuito",
+      "premium": "Premium",
+      "pro": "Pro",
+      "upgrade": "Fazer upgrade",
+      "petsUsed": "{count} de {max} pets"
+    }
+  },
+  "PetForm": {
+    "title": "Cadastrar Pet",
+    "editTitle": "Editar Pet",
+    "name": "Nome do pet",
+    "species": "Espécie",
+    "speciesOptions": {
+      "dog": "Cachorro",
+      "cat": "Gato",
+      "bird": "Pássaro",
+      "other": "Outro"
+    },
+    "breed": "Raça",
+    "color": "Cor",
+    "size": "Porte",
+    "sizeOptions": {
+      "small": "Pequeno",
+      "medium": "Médio",
+      "large": "Grande"
+    },
+    "weight": "Peso (kg)",
+    "birthDate": "Data de nascimento",
+    "gender": "Sexo",
+    "genderOptions": {
+      "male": "Macho",
+      "female": "Fêmea",
+      "unknown": "Não informado"
+    },
+    "microchipId": "ID do microchip",
+    "description": "Descrição",
+    "descriptionPlaceholder": "Conte um pouco sobre seu pet...",
+    "photos": "Fotos",
+    "photosHint": "Adicione até {max} fotos do seu pet",
+    "uploadPhoto": "Enviar foto",
+    "primaryPhoto": "Foto principal",
+    "submit": "Salvar pet",
+    "submitting": "Salvando..."
+  },
+  "PetProfile": {
+    "title": "Perfil do Pet",
+    "lostBanner": "⚠️ {name} está perdido(a) desde {date}!",
+    "lastSeen": "Visto por último em: {location}",
+    "contact": "Entrar em contato",
+    "contactPhone": "Ligar para o tutor",
+    "species": "Espécie",
+    "breed": "Raça",
+    "color": "Cor",
+    "size": "Porte",
+    "weight": "Peso",
+    "age": "Idade",
+    "gender": "Sexo",
+    "microchip": "Microchip",
+    "description": "Sobre {name}",
+    "scanQR": "Escaneie o QR Code para acessar este perfil",
+    "reportSighting": "Vi este pet!",
+    "shareProfile": "Compartilhar perfil"
+  },
+  "Poster": {
+    "title": "PET PERDIDO",
+    "subtitle": "AJUDE-NOS A ENCONTRAR",
+    "lastSeen": "Visto por último em: {location}",
+    "contact": "Contato: {phone}",
+    "scanQR": "Escaneie para mais informações",
+    "reward": "RECOMPENSA",
+    "generate": "Gerar cartaz",
+    "download": "Baixar cartaz",
+    "generating": "Gerando cartaz..."
+  },
+  "Plans": {
+    "title": "Planos",
+    "subtitle": "Escolha o plano ideal para você e seu pet",
+    "monthly": "Mensal",
+    "yearly": "Anual",
+    "free": {
+      "name": "Gratuito",
+      "price": "R$ 0",
+      "description": "Perfeito para começar",
+      "features": [
+        "1 pet",
+        "3 fotos por pet",
+        "QR Code básico",
+        "1 template de cartaz",
+        "Perfil público"
+      ]
+    },
+    "premium": {
+      "name": "Premium",
+      "price": "R$ 14,90",
+      "description": "Para quem quer mais personalização",
+      "features": [
+        "5 pets",
+        "10 fotos por pet",
+        "QR Code customizável",
+        "5 templates de cartaz",
+        "Perfil personalizável",
+        "Analytics de scans"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "R$ 29,90",
+      "description": "O máximo em proteção e estilo",
+      "features": [
+        "Pets ilimitados",
+        "Fotos ilimitadas",
+        "QR Code totalmente custom",
+        "Templates de cartaz ilimitados",
+        "Perfil totalmente custom",
+        "Analytics avançados",
+        "Suporte prioritário"
+      ]
+    },
+    "currentPlan": "Plano atual",
+    "choosePlan": "Escolher plano",
+    "popular": "Mais popular"
+  },
+  "Footer": {
+    "rights": "© {year} Find My Pet. Todos os direitos reservados.",
+    "privacy": "Privacidade",
+    "terms": "Termos de uso",
+    "contact": "Contato"
+  }
+}

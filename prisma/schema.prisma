@@ -1,0 +1,350 @@
+// Prisma schema for Find My Pet
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============ USERS & AUTH ============
+
+model User {
+  id            String    @id @default(uuid()) @db.Uuid
+  email         String    @unique @db.VarChar(255)
+  emailVerified DateTime? @map("email_verified")
+  passwordHash  String?   @map("password_hash") @db.VarChar(255)
+  name          String    @db.VarChar(255)
+  phone         String?   @db.VarChar(20)
+  image         String?   @db.Text
+  locale        String    @default("pt-BR") @db.VarChar(5)
+  country       String    @default("BR") @db.VarChar(2)
+  timezone      String    @default("America/Sao_Paulo") @db.VarChar(50)
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  accounts      Account[]
+  sessions      Session[]
+  pets          Pet[]
+  subscriptions Subscription[]
+  orders        Order[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(uuid()) @db.Uuid
+  userId            String  @map("user_id") @db.Uuid
+  type              String  @db.VarChar(20)
+  provider          String  @db.VarChar(20)
+  providerAccountId String  @map("provider_account_id") @db.VarChar(255)
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String? @db.VarChar(50)
+  scope             String? @db.Text
+  id_token          String? @db.Text
+  session_state     String? @db.Text
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(uuid()) @db.Uuid
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id") @db.Uuid
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ============ PETS ============
+
+model Pet {
+  id              String    @id @default(uuid()) @db.Uuid
+  userId          String    @map("user_id") @db.Uuid
+  name            String    @db.VarChar(100)
+  slug            String    @unique @db.VarChar(100)
+  species         String    @db.VarChar(20) // dog, cat, bird, other
+  breed           String?   @db.VarChar(100)
+  color           String?   @db.VarChar(100)
+  size            String?   @db.VarChar(20) // small, medium, large
+  weightKg        Decimal?  @map("weight_kg") @db.Decimal(5, 2)
+  birthDate       DateTime? @map("birth_date") @db.Date
+  gender          String?   @db.VarChar(10) // male, female, unknown
+  microchipId     String?   @map("microchip_id") @db.VarChar(50)
+  description     String?   @db.Text
+  medicalNotes    String?   @map("medical_notes") @db.Text
+  isLost          Boolean   @default(false) @map("is_lost")
+  lostSince       DateTime? @map("lost_since")
+  lastSeenLocation String?  @map("last_seen_location") @db.Text
+  lastSeenLat     Decimal?  @map("last_seen_lat") @db.Decimal(10, 7)
+  lastSeenLng     Decimal?  @map("last_seen_lng") @db.Decimal(10, 7)
+  isPublic        Boolean   @default(true) @map("is_public")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  photos      PetPhoto[]
+  qrCodes     QRCode[]
+  posters     Poster[]
+  physicalTags PhysicalTag[]
+
+  @@index([userId])
+  @@index([slug])
+  @@index([isLost])
+  @@map("pets")
+}
+
+model PetPhoto {
+  id         String   @id @default(uuid()) @db.Uuid
+  petId      String   @map("pet_id") @db.Uuid
+  storageKey String   @map("storage_key") @db.Text
+  urlThumb   String   @map("url_thumb") @db.Text
+  urlMedium  String   @map("url_medium") @db.Text
+  urlFull    String   @map("url_full") @db.Text
+  isPrimary  Boolean  @default(false) @map("is_primary")
+  sortOrder  Int      @default(0) @map("sort_order")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  pet Pet @relation(fields: [petId], references: [id], onDelete: Cascade)
+
+  @@index([petId])
+  @@map("pet_photos")
+}
+
+// ============ QR CODES ============
+
+model QRCode {
+  id              String   @id @default(uuid()) @db.Uuid
+  petId           String   @map("pet_id") @db.Uuid
+  style           Json     @default("{}")
+  imageStorageKey String?  @map("image_storage_key") @db.Text
+  imageUrl        String?  @map("image_url") @db.Text
+  errorCorrection String   @default("M") @map("error_correction") @db.VarChar(1)
+  isActive        Boolean  @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  pet Pet @relation(fields: [petId], references: [id], onDelete: Cascade)
+
+  @@index([petId])
+  @@map("qr_codes")
+}
+
+// ============ PHYSICAL TAGS ============
+
+model PhysicalTag {
+  id          String    @id @default(uuid()) @db.Uuid
+  tagCode     String    @unique @map("tag_code") @db.VarChar(12)
+  tagType     String    @map("tag_type") @db.VarChar(30) // qr_metal, nfc_pendant, qr_sticker
+  petId       String?   @map("pet_id") @db.Uuid
+  orderId     String?   @map("order_id") @db.Uuid
+  status      String    @default("unactivated") @db.VarChar(20)
+  activatedAt DateTime? @map("activated_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  pet   Pet?   @relation(fields: [petId], references: [id])
+  order Order? @relation(fields: [orderId], references: [id])
+
+  @@index([tagCode])
+  @@map("physical_tags")
+}
+
+// ============ ORDERS ============
+
+model Order {
+  id               String    @id @default(uuid()) @db.Uuid
+  userId           String    @map("user_id") @db.Uuid
+  status           String    @default("pending") @db.VarChar(20)
+  totalAmount      Decimal   @map("total_amount") @db.Decimal(10, 2)
+  currency         String    @default("BRL") @db.VarChar(3)
+  gateway          String?   @db.VarChar(20)
+  gatewayPaymentId String?   @map("gateway_payment_id") @db.VarChar(255)
+  shippingAddress  Json?     @map("shipping_address")
+  trackingCode     String?   @map("tracking_code") @db.VarChar(100)
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  user         User          @relation(fields: [userId], references: [id])
+  items        OrderItem[]
+  physicalTags PhysicalTag[]
+
+  @@index([userId])
+  @@map("orders")
+}
+
+model OrderItem {
+  id            String  @id @default(uuid()) @db.Uuid
+  orderId       String  @map("order_id") @db.Uuid
+  tagType       String  @map("tag_type") @db.VarChar(30)
+  quantity      Int
+  unitPrice     Decimal @map("unit_price") @db.Decimal(10, 2)
+  customization Json?
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("order_items")
+}
+
+// ============ PLANS & SUBSCRIPTIONS ============
+
+model Plan {
+  id              String   @id @default(uuid()) @db.Uuid
+  slug            String   @unique @db.VarChar(20) // free, premium, pro
+  namePt          String   @map("name_pt") @db.VarChar(100)
+  nameEn          String   @map("name_en") @db.VarChar(100)
+  priceBrl        Decimal? @map("price_brl") @db.Decimal(10, 2)
+  priceUsd        Decimal? @map("price_usd") @db.Decimal(10, 2)
+  billingCycle    String   @default("monthly") @map("billing_cycle") @db.VarChar(20)
+  stripePriceId   String?  @map("stripe_price_id") @db.VarChar(255)
+  features        Json
+  maxPets         Int      @default(1) @map("max_pets")
+  maxPhotosPerPet Int      @default(3) @map("max_photos_per_pet")
+  customQr        Boolean  @default(false) @map("custom_qr")
+  posterTemplates Int      @default(1) @map("poster_templates")
+  isActive        Boolean  @default(true) @map("is_active")
+  sortOrder       Int      @default(0) @map("sort_order")
+
+  subscriptions Subscription[]
+
+  @@map("plans")
+}
+
+model Subscription {
+  id                    String    @id @default(uuid()) @db.Uuid
+  userId                String    @map("user_id") @db.Uuid
+  planId                String    @map("plan_id") @db.Uuid
+  gateway               String    @db.VarChar(20) // asaas, stripe
+  gatewaySubscriptionId String?   @map("gateway_subscription_id") @db.VarChar(255)
+  gatewayCustomerId     String?   @map("gateway_customer_id") @db.VarChar(255)
+  status                String    @default("active") @db.VarChar(20)
+  currentPeriodStart    DateTime? @map("current_period_start")
+  currentPeriodEnd      DateTime? @map("current_period_end")
+  cancelAtPeriodEnd     Boolean   @default(false) @map("cancel_at_period_end")
+  metadata              Json?
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  user          User           @relation(fields: [userId], references: [id])
+  plan          Plan           @relation(fields: [planId], references: [id])
+  paymentEvents PaymentEvent[]
+
+  @@index([userId])
+  @@map("subscriptions")
+}
+
+model PaymentEvent {
+  id              String   @id @default(uuid()) @db.Uuid
+  subscriptionId  String   @map("subscription_id") @db.Uuid
+  gateway         String   @db.VarChar(20)
+  eventType       String   @map("event_type") @db.VarChar(50)
+  gatewayEventId  String?  @unique @map("gateway_event_id") @db.VarChar(255)
+  amount          Decimal? @db.Decimal(10, 2)
+  currency        String?  @db.VarChar(3)
+  rawPayload      Json?    @map("raw_payload")
+  processedAt     DateTime @default(now()) @map("processed_at")
+
+  subscription Subscription @relation(fields: [subscriptionId], references: [id])
+
+  @@map("payment_events")
+}
+
+// ============ POSTERS ============
+
+model Poster {
+  id          String   @id @default(uuid()) @db.Uuid
+  petId       String   @map("pet_id") @db.Uuid
+  templateId  String   @map("template_id") @db.VarChar(50)
+  storageKey  String?  @map("storage_key") @db.Text
+  downloadUrl String?  @map("download_url") @db.Text
+  locale      String   @default("pt-BR") @db.VarChar(5)
+  generatedAt DateTime @default(now()) @map("generated_at")
+
+  pet Pet @relation(fields: [petId], references: [id], onDelete: Cascade)
+
+  @@index([petId])
+  @@map("posters")
+}
+
+// ============ AFFILIATES ============
+
+model AffiliatePartner {
+  id              String   @id @default(uuid()) @db.Uuid
+  name            String   @db.VarChar(255)
+  category        String?  @db.VarChar(50) // health_plan, food, accessories, insurance
+  baseUrl         String   @map("base_url") @db.Text
+  commissionType  String?  @map("commission_type") @db.VarChar(20) // cpc, cpa, revenue_share
+  commissionValue Decimal? @map("commission_value") @db.Decimal(10, 4)
+  isActive        Boolean  @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  links       AffiliateLink[]
+  conversions AffiliateConversion[]
+
+  @@map("affiliate_partners")
+}
+
+model AffiliateLink {
+  id             String   @id @default(uuid()) @db.Uuid
+  partnerId      String   @map("partner_id") @db.Uuid
+  slug           String   @unique @db.VarChar(100)
+  destinationUrl String   @map("destination_url") @db.Text
+  placement      String?  @db.VarChar(50) // pet_profile, dashboard, poster, email
+  metadata       Json?
+  isActive       Boolean  @default(true) @map("is_active")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  partner AffiliatePartner @relation(fields: [partnerId], references: [id])
+  clicks  AffiliateClick[]
+
+  @@map("affiliate_links")
+}
+
+model AffiliateClick {
+  id          String   @id @default(uuid()) @db.Uuid
+  linkId      String   @map("link_id") @db.Uuid
+  userId      String?  @map("user_id") @db.Uuid
+  petId       String?  @map("pet_id") @db.Uuid
+  ipHash      String?  @map("ip_hash") @db.VarChar(64)
+  userAgent   String?  @map("user_agent") @db.Text
+  referer     String?  @db.Text
+  countryCode String?  @map("country_code") @db.VarChar(2)
+  clickedAt   DateTime @default(now()) @map("clicked_at")
+
+  link AffiliateLink @relation(fields: [linkId], references: [id])
+
+  @@index([linkId, clickedAt])
+  @@map("affiliate_clicks")
+}
+
+model AffiliateConversion {
+  id             String    @id @default(uuid()) @db.Uuid
+  clickId        String?   @map("click_id") @db.Uuid
+  partnerId      String    @map("partner_id") @db.Uuid
+  conversionType String?   @map("conversion_type") @db.VarChar(50)
+  revenue        Decimal?  @db.Decimal(10, 2)
+  commission     Decimal?  @db.Decimal(10, 2)
+  currency       String    @default("BRL") @db.VarChar(3)
+  status         String    @default("pending") @db.VarChar(20)
+  externalRef    String?   @map("external_ref") @db.VarChar(255)
+  convertedAt    DateTime? @map("converted_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+
+  partner AffiliatePartner @relation(fields: [partnerId], references: [id])
+
+  @@map("affiliate_conversions")
+}
