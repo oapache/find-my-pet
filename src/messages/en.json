@@ -189,7 +189,19 @@
     },
     "currentPlan": "Current plan",
     "choosePlan": "Choose plan",
-    "popular": "Most popular"
+    "popular": "Most popular",
+    "perMonth": "/month",
+    "billingType": "Payment method",
+    "pix": "PIX",
+    "creditCard": "Credit card",
+    "boleto": "Bank slip",
+    "processing": "Processing...",
+    "upgradeSuccess": "Subscription started successfully!",
+    "cancelSubscription": "Cancel subscription",
+    "cancelConfirm": "Are you sure you want to cancel your subscription?",
+    "cancelSuccess": "Subscription canceled",
+    "features": "Features",
+    "compareFeatures": "Compare plans"
   },
   "Footer": {
     "rights": "© {year} Find My Pet. All rights reserved.",
